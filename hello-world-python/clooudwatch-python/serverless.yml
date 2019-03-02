@@ -1,0 +1,23 @@
+service: clooudwatch-python # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: python2.7
+  region: ap-south-1
+  profile: serverless-admin
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:*"
+        - "cloudwatch:*"
+        - "sns:*"
+      Resource:
+        - "*"
+
+functions:
+  lambda_handler:
+    handler: handler.lambda_handler
+  ebs_delete_fn:
+    handler: ebs_delete.ebs_delete_fn
+  ami_delete_fn:
+    handler: ami_delete.ami_delete_fn
