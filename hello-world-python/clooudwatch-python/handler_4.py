@@ -2,10 +2,10 @@ from collections import defaultdict
 from botocore.config import Config
 import boto3
 
-tag_name = 'qwe'  # place your tag name
-tag_value = 'asd'  # place your tag_value
+tag_name = 'cloudwatch'  # place your tag name
+tag_value = 'yes'  # place your tag_value
 ec2_sns = 'arn:aws:sns:ap-south-1:577683050298:CW-Testing'  # Ex: arn:aws:sns:ap-south-1:577683054564:CW-Testing
-ec2_recovery = "arn:aws:automate:ap-south-1:ec2:recover"
+ec2_recovery = 'arn:aws:automate:ap-south-1:ec2:recover'
 
 config = Config(
     retries=dict(
