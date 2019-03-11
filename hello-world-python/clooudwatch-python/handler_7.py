@@ -32,8 +32,7 @@ def get_running_instances(t_name, t_value):
 # print(get_running_instances(tag_name, tag_value))
 
 
-def lambda_handler():
-    # def lambda_handler(event, context):
+def lambda_handler(event="event", context="context"):
     running_instances = get_running_instances(tag_name, tag_value).items()
     output_format = 'instances with tags matching: {t_name} = {t_value}'.format(t_name=tag_name, t_value=tag_value)
     if not running_instances:
@@ -106,4 +105,4 @@ def lambda_handler():
     #     #     ComparisonOperator='GreaterThanOrEqualToThreshold')
 
 
-# lambda_handler()
+lambda_handler()
