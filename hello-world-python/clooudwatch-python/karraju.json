@@ -1,0 +1,42 @@
+{
+    "eventVersion": "1.05",
+    "userIdentity": {
+        "type": "Root",
+        "principalId": "577683050298",
+        "arn": "arn:aws:iam::577683050298:root",
+        "accountId": "577683050298",
+        "accessKeyId": "ASIAYNAEXZ45P24NUI4M",
+        "userName": "karraju",
+        "sessionContext": {
+            "attributes": {
+                "mfaAuthenticated": "true",
+                "creationDate": "2019-03-15T20:51:23Z"
+            }
+        }
+    },
+    "eventTime": "2019-03-16T06:54:01Z",
+    "eventSource": "s3.amazonaws.com",
+    "eventName": "GetBucketLocation",
+    "awsRegion": "ap-south-1",
+    "sourceIPAddress": "52.95.72.235",
+    "userAgent": "[AWSCloudTrail, aws-internal/3 aws-sdk-java/1.11.503 Linux/4.9.137-0.1.ac.218.74.329.metal1.x86_64 OpenJDK_64-Bit_Server_VM/25.202-b08 java/1.8.0_202]",
+    "requestParameters": {
+        "host": [
+            "s3.ap-south-1.amazonaws.com"
+        ],
+        "bucketName": "ct-s3-test-1",
+        "location": [
+            ""
+        ]
+    },
+    "responseElements": null,
+    "additionalEventData": {
+        "SignatureVersion": "SigV4",
+        "CipherSuite": "ECDHE-RSA-AES128-SHA",
+        "AuthenticationMethod": "AuthHeader"
+    },
+    "requestID": "E1F8F5FB5B20FB40",
+    "eventID": "0fdcc984-340f-412e-a0ce-aded0e75d1da",
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "577683050298"
+}

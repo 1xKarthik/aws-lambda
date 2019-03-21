@@ -1,0 +1,57 @@
+{
+    "Records": [
+        {
+            "eventVersion": "1.05",
+            "eventID": "8c12ca7e-eb61-4180-a594-a552829fb825",
+            "eventTime": "2019-03-21T10: 33: 41Z",
+            "requestParameters": {
+                "instancesSet": {
+                    "items": [
+                        {
+                            "instanceId": "i-06edd14235f7d62b8"
+                        }
+                    ]
+                }
+            },
+            "eventType": "AwsApiCall",
+            "responseElements": {
+                "instancesSet": {
+                    "items": [
+                        {
+                            "instanceId": "i-06edd14235f7d62b8",
+                            "currentState": {
+                                "code": 32,
+                                "name": "shutting-down"
+                            },
+                            "previousState": {
+                                "code": 16,
+                                "name": "running"
+                            }
+                        }
+                    ]
+                }
+            },
+            "awsRegion": "ap-south-1",
+            "eventName": "TerminateInstances",
+            "userIdentity": {
+                "userName": "karraju",
+                "principalId": "577683050298",
+                "accessKeyId": "ASIAYNAEXZ45AS6XSLHB",
+                "sessionContext": {
+                    "attributes": {
+                        "creationDate": "2019-03-21T09: 06: 48Z",
+                        "mfaAuthenticated": "true"
+                    }
+                },
+                "type": "Root",
+                "arn": "arn:aws:iam: : 577683050298:root",
+                "accountId": "577683050298"
+            },
+            "eventSource": "ec2.amazonaws.com",
+            "requestID": "b4ec9863-2aa0-49fd-830f-0994163404d2",
+            "userAgent": "console.ec2.amazonaws.com",
+            "sourceIPAddress": "157.44.220.111",
+            "recipientAccountId": "577683050298"
+        }
+    ]
+}
