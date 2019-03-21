@@ -1,14 +1,45 @@
 import boto3
+import json
 from botocore.exceptions import ClientError
 
-ENABLE_LOG = False
+ENABLE_LOG = True
 lambda_function = 'arn:aws:lambda:ap-south-1:577683050298:function:cloudtrail'  # place your lambda function here
 s3_bucket_name = 'ct-s3-test-1'  # place your bucket here
+region = 'ap-south-1'  # replace the region
+trail_name = 'EC2TrailAllRegions'  # CLoudTrail name
 
-trail_name = 'EC2TrailAllRegions'
-ct_client = boto3.client('cloudtrail')
-lambda_client = boto3.client('lambda')
-s3_client = boto3.client('s3')
+sts = boto3.client("sts")
+ct_client = boto3.client('cloudtrail', region_name=region)
+lambda_client = boto3.client('lambda', region_name=region)
+s3_client = boto3.client('s3', region_name=region)
+account_id = sts.get_caller_identity()["Account"]
+
+user_policy = {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AWSCloudTrailAclCheck20150319",
+            "Effect": "Allow",
+            "Principal": {"Service": "cloudtrail.amazonaws.com"},
+            "Action": "s3:GetBucketAcl",
+            "Resource": "arn:aws:s3:::{}".format(s3_bucket_name)
+        },
+        {
+            "Sid": "AWSCloudTrailWrite20150319",
+            "Effect": "Allow",
+            "Principal": {"Service": "cloudtrail.amazonaws.com"},
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::{}/AWSLogs/{}/*".format(s3_bucket_name, account_id),
+            "Condition": {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control"}}
+        }
+    ]
+}
+
+s3_client.put_bucket_policy(
+    Bucket=s3_bucket_name,
+    Policy=json.dumps(user_policy)
+)
+print("Bucket policy added")
 
 try:
     ct_client.create_trail(
@@ -38,7 +69,12 @@ events = ct_client.put_event_selectors(
         },
     ]
 )
-print("CloudTrail data event ARN - {}".format(events['TrailARN']))
+print("CloudTrail added: ARN - {}".format(events['TrailARN']))
+
+s3_client.put_bucket_notification_configuration(
+    Bucket=s3_bucket_name,
+    NotificationConfiguration={})
+print("Old S3 triggers removed")
 
 try:
     lambda_policy = lambda_client.add_permission(
