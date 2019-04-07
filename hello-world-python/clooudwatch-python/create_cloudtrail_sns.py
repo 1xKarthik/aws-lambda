@@ -4,7 +4,7 @@ from botocore.exceptions import ClientError
 
 ENABLE_LOG = True
 lambda_function = 'arn:aws:lambda:ap-south-1:577683050298:function:cloudtrail'  # place your lambda function here
-s3_bucket_name = 'ct-s3-test-1'  # place your bucket here
+s3_bucket_name = 'alksjdlksajdksajk'  # place your bucket here
 region = 'ap-south-1'  # replace the region
 trail_name = 'EC2TrailAllRegions'  # CLoudTrail name
 
@@ -76,17 +76,19 @@ s3_client.put_bucket_notification_configuration(
     NotificationConfiguration={})
 print("Old S3 triggers removed")
 
-try:
-    lambda_policy = lambda_client.add_permission(
-        FunctionName=lambda_function,
-        Action='lambda:InvokeFunction',
-        Principal='s3.amazonaws.com',
-        StatementId='TrustS3ToInvokeMyLambdaFunction',
-        SourceArn="arn:aws:s3:::{}".format(s3_bucket_name),
-    )
-    print("Lambda permissions added")
-except ClientError as e:
-    print("Permission already exists")
+response = lambda_client.remove_permission(
+    FunctionName=lambda_function,
+    StatementId='TrustS3ToInvokeMyLambdaFunction'
+)
+print("Old Lambda permissions removed")
+
+lambda_policy = lambda_client.add_permission(
+    FunctionName=lambda_function,
+    Action='lambda:InvokeFunction',
+    Principal='s3.amazonaws.com',
+    StatementId='TrustS3ToInvokeMyLambdaFunction',
+    SourceArn="arn:aws:s3:::{}".format(s3_bucket_name),
+)
 
 s3_client.put_bucket_notification_configuration(
     Bucket=s3_bucket_name,
