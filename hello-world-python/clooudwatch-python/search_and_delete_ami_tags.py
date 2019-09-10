@@ -15,8 +15,8 @@ create_tag_value = 'Yes'  # Tag values are case-sensitive and accept a maximum o
 
 ec2_client = boto3.client('ec2', region_name=my_region)
 regions = ec2_client.describe_regions().get('Regions', [])
-all_regions = [region['RegionName'] for region in regions]  # to search and delete tags for all regions in aws
-# all_regions = ['us-east-1', 'ap-south-1']  # to search and delete tags for specific regions only
+# all_regions = [region['RegionName'] for region in regions]  # to search and delete tags for all regions in aws
+all_regions = ['us-east-1', 'ap-south-1']  # to search and delete tags for specific regions only
 
 print("AMI's matching string: {}".format(search))
 for region in all_regions:  # loop though all regions
